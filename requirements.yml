@@ -1,0 +1,5 @@
+- src: kamaln7.swapfile
+- src: geerlingguy.git
+- src: geerlingguy.redis
+- src: geerlingguy.varnish
+- src: geerlingguy.nodejs

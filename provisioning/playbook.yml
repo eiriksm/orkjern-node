@@ -1,0 +1,11 @@
+---
+
+- hosts: orkjern_node_local
+  vars_files:
+    - vars/main.yml
+  roles:
+    - kamaln7.swapfile
+    - geerlingguy.git
+    - geerlingguy.redis
+    - geerlingguy.varnish
+    - geerlingguy.nodejs
