@@ -3,6 +3,7 @@
 - hosts: all
   vars_files:
     - vars/main.yml
+    - vars/secrets.yml
   roles:
     - kamaln7.swapfile
     - geerlingguy.git
@@ -15,7 +16,34 @@
       apt:
         name: build-essential
         state: present
+    - name: Copy Varnish config
+      template:
+        src: templates/default.vcl.j2
+        dest: /etc/varnish/default.vcl
+        owner: root
+        group: root
+        mode: 0644
+      notify:
+        - restart varnish
     - name: Install libfontconfig
       apt:
         name: libfontconfig
         state: present
+    - name: Install e-o cron service
+      template:
+        src: templates/eo_cron.j2
+        dest: /etc/systemd/system/eo_cron.service
+    - name: Start e-o cron service
+      systemd:
+        state: started
+        name: eo_cron
+        daemon_reload: yes
+    - name: Install level-crash service
+      template:
+        src: templates/level_crash.j2
+        dest: /etc/systemd/system/level_crash.service
+    - name: Start level_crash service
+      systemd:
+        state: started
+        name: level_crash
+        daemon_reload: yes
