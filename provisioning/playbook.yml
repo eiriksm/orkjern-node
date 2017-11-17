@@ -7,9 +7,12 @@
   roles:
     - kamaln7.swapfile
     - geerlingguy.git
+    - geerlingguy.php
     - geerlingguy.redis
     - geerlingguy.varnish
     - geerlingguy.nodejs
+    - geerlingguy.docker
+    - geerlingguy.composer
 
   tasks:
     - name: Install make
@@ -65,3 +68,9 @@
         state: started
         name: server
         daemon_reload: yes
+    - name: Add some users to the docker group
+      user:
+        name: "{{ item }}"
+        group: docker
+        append: yes
+      with_items: "{{ docker_users }}"

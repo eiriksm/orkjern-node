@@ -1,3 +1,4 @@
+php_enable_webserver: false
 nginx_remove_default_vhost: true
 varnish_default_backend_port: 8008
 varnish_use_default_vcl: false
