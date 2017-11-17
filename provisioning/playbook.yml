@@ -47,3 +47,21 @@
         state: started
         name: level_crash
         daemon_reload: yes
+    - name: Install logger service
+      template:
+        src: templates/logger.j2
+        dest: /etc/systemd/system/logger.service
+    - name: Start logger service
+      systemd:
+        state: started
+        name: logger
+        daemon_reload: yes
+    - name: Install server service
+      template:
+        src: templates/server.j2
+        dest: /etc/systemd/system/server.service
+    - name: Start server service
+      systemd:
+        state: started
+        name: server
+        daemon_reload: yes

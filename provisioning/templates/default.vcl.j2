@@ -28,12 +28,12 @@ sub vcl_recv {
     set req.http.X-Forwarded-For = req.http.cf-connecting-ip;
   }
 {% for service in node_services %}
-  {% if service.force_https %}
-  if (req.http.X-Forwarded-Proto == "http") {
-    return (synth(750, ""));
-  }
-  {% endif %}
   if (req.http.host ~ "{{service.host}}") {
+    {% if service.force_https %}
+    if (req.http.X-Forwarded-Proto == "http") {
+      return (synth(750, ""));
+    }
+    {% endif %}
     set req.backend_hint = {{service.name}};
     return(pass);
   }

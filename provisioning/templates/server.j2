@@ -1,0 +1,12 @@
+[Service]
+ExecStart=/usr/bin/npm start --prefix={{server_install}}
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=node
+User={{node_user}}
+Group={{node_user}}
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
