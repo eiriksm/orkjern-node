@@ -32,6 +32,10 @@
       apt:
         name: libfontconfig
         state: present
+    - name: Install libevent-dev
+      apt:
+        name: libevent-dev
+        state: present
     - name: Install e-o cron service
       template:
         src: templates/eo_cron.j2
@@ -67,6 +71,24 @@
       systemd:
         state: started
         name: server
+        daemon_reload: yes
+    - name: Install queue_starter service
+      template:
+        src: templates/queue_starter.j2
+        dest: /etc/systemd/system/queue_starter.service
+    - name: Start queue_starter service
+      systemd:
+        state: started
+        name: queue_starter
+        daemon_reload: yes
+    - name: Install redis_publisher service
+      template:
+        src: templates/redis_publisher.j2
+        dest: /etc/systemd/system/redis_publisher.service
+    - name: Start redis_publisher service
+      systemd:
+        state: started
+        name: redis_publisher
         daemon_reload: yes
     - name: Add some users to the docker group
       user:
