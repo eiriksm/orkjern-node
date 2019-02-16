@@ -1,0 +1,12 @@
+[Service]
+ExecStart=/usr/bin/npm start --prefix={{queue_starter_install}}
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=queue_starter
+User={{node_user}}
+Group={{queue_starter_group}}
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
